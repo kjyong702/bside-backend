@@ -1,0 +1,10 @@
+{
+  "user": {
+    "id": 3,
+    "kakaoId": "2728246147",
+    "name": "김재영",
+    "email": "kjyong702@naver.com",
+    "ageRange": "20~29"
+  },
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Iuq5gOyerOyYgSIsImtha2FvSWQiOiIyNzI4MjQ2MTQ3IiwiaWF0IjoxNjgwMTgyMDk5LCJleHAiOjE2ODAxODU2OTl9.vtN_qLe3AFsibpCqiRcZ38ZB6Ixzvz7Ok9-D8Q_SFuM"
+}

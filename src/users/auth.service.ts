@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { JwtService } from '@nestjs/jwt';
 import axios from 'axios';
@@ -28,9 +28,12 @@ export class AuthService {
     });
 
     const { id, properties, kakao_account } = response.data;
-
     const { nickname } = properties;
     const { email, age_range } = kakao_account;
+
+    if (['1~9', '10~14', '15~19', '20~29'].includes(age_range)) {
+      throw new BadRequestException('미성년자 입니다');
+    }
     let user = await this.usersService.findOne(String(id));
     if (!user) {
       user = await this.usersService.createUser(
