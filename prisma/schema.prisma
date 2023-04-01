@@ -13,4 +13,36 @@ model User {
   name      String
   email     String
   ageRange  String
+  diaries   Diary[]
 }
+
+model Diary {
+  id          Int        @default(autoincrement()) @id
+  alcholType  String
+  amount      Int
+  amountType  String
+  withWhom    String
+  where       String
+  why         String?
+  food        String?
+  thought     String?
+  createdAt   DateTime   @default(now())
+  author      User?      @relation(fields: [authorId], references: [id])
+  authorId    Int?
+}
+
+// model User {
+//   id    Int     @default(autoincrement()) @id
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
+
+// model Post {
+//   id        Int      @default(autoincrement()) @id
+//   title     String
+//   content   String?
+//   published Boolean? @default(false)
+//   author    User?    @relation(fields: [authorId], references: [id])
+//   authorId  Int?
+// }

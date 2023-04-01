@@ -31,17 +31,17 @@ export class AuthService {
     const { nickname } = properties;
     const { email, age_range } = kakao_account;
 
-    if (['1~9', '10~14', '15~19', '20~29'].includes(age_range)) {
+    if (['1~9', '10~14', '15~19'].includes(age_range)) {
       throw new BadRequestException('미성년자 입니다');
     }
-    let user = await this.usersService.findOne(String(id));
+    let user = await this.usersService.user({ kakaoId: String(id) });
     if (!user) {
-      user = await this.usersService.createUser(
-        String(id),
-        nickname,
+      user = await this.usersService.createUser({
+        kakaoId: String(id),
+        name: nickname,
         email,
-        age_range,
-      );
+        ageRange: age_range,
+      });
     }
     const accessToken = await this.jwtService.signAsync({
       username: user.name,
