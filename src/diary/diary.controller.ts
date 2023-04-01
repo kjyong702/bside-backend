@@ -33,7 +33,7 @@ export class DiaryController {
     });
   }
   // 오래된순 정렬
-  @Get('/filteredDesc')
+  @Get('/filter/desc')
   @UseGuards(AuthGuard)
   async getDiariesForUserOrderByDesc(@Request() req: any) {
     const kakaoId = req.user.kakaoId;
@@ -45,6 +45,7 @@ export class DiaryController {
     });
   }
 
+  // 일기 생성
   @Post()
   @UseGuards(AuthGuard)
   async createDiary(
@@ -88,11 +89,13 @@ export class DiaryController {
     });
   }
 
+  // 일기 상세 정보
   @Get('/:id')
   async getDiaryById(@Param('id') id: string) {
     return this.diaryService.diary({ id: Number(id) });
   }
 
+  // 일기 삭제
   @Delete('/:id')
   async deleteDiaryById(@Param('id') id: string) {
     return this.diaryService.deleteDiary({ id: Number(id) });
