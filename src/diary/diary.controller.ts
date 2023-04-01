@@ -21,7 +21,7 @@ export class DiaryController {
   ) {}
 
   // 최신순 정렬
-  @Get()
+  @Get('/filter/asc')
   @UseGuards(AuthGuard)
   async getDiariesForUserOrderByAsc(@Request() req: any) {
     const kakaoId = req.user.kakaoId;
