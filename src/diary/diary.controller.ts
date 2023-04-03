@@ -74,7 +74,7 @@ export class DiaryController {
     } = body;
     return this.diaryService.createDiary({
       alcholType,
-      amount,
+      amount: Number(amount),
       amountType,
       withWhom,
       where,
