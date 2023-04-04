@@ -29,4 +29,12 @@ model Diary {
   createdAt   DateTime   @default(now())
   author      User?      @relation(fields: [authorId], references: [id])
   authorId    Int?
+  images      Image[]
+}
+
+model Image {
+  id        Int       @default(autoincrement()) @id
+  url       String    @unique
+  diary     Diary?    @relation(fields: [diaryId], references: [id])
+  diaryId   Int?
 }
