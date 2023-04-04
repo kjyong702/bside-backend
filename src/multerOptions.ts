@@ -35,7 +35,7 @@ export const multerOptions = {
 };
 
 export const createImageURL = (file): string => {
-  const serverAddress = 'http://localhost:3000';
+  const serverAddress = 'http://localhost:3001';
 
   // 파일이 저장 경로: 서버주소/public
   return `${serverAddress}/public/${file.filename}`;
