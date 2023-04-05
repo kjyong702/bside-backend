@@ -10,6 +10,7 @@ import {
 } from '@nestjs/common';
 import { DiaryService } from './diary.service';
 import { UsersService } from '../users/users.service';
+import { PrismaService } from '../prisma.service';
 import { Diary as DiaryModel } from '@prisma/client';
 import { AuthGuard } from '../guards/auth.guard';
 
@@ -18,6 +19,7 @@ export class DiaryController {
   constructor(
     private diaryService: DiaryService,
     private usersService: UsersService,
+    private prisma: PrismaService,
   ) {}
 
   // 최신순 정렬
@@ -59,6 +61,7 @@ export class DiaryController {
       why?: string;
       food?: string;
       thought?: string;
+      imagesUrl?: string[];
     },
     @Request() req: any,
   ): Promise<DiaryModel> {
@@ -71,8 +74,10 @@ export class DiaryController {
       why,
       food,
       thought,
+      imagesUrl,
     } = body;
-    return this.diaryService.createDiary({
+
+    const createdDiary = await this.diaryService.createDiary({
       alcholType,
       amount: Number(amount),
       amountType,
@@ -87,6 +92,21 @@ export class DiaryController {
         },
       },
     });
+
+    for (const imageUrl of imagesUrl) {
+      await this.prisma.image.update({
+        where: { url: imageUrl },
+        data: {
+          diary: {
+            connect: {
+              id: createdDiary.id,
+            },
+          },
+        },
+      });
+    }
+
+    return createdDiary;
   }
 
   // 일기 상세 정보

@@ -1,5 +1,7 @@
 import {
   Controller,
+  Delete,
+  Param,
   Post,
   UploadedFiles,
   UseGuards,
@@ -12,20 +14,26 @@ import { AuthGuard } from '../guards/auth.guard';
 
 @Controller('upload')
 export class UploadController {
-  constructor(private readonly uploadService: UploadService) {}
+  constructor(private uploadService: UploadService) {}
 
   @UseInterceptors(FilesInterceptor('images', 10, multerOptions))
   @Post()
   @UseGuards(AuthGuard)
-  public uploadFiles(@UploadedFiles() files: File[]) {
-    const uploadedFiles: string[] = this.uploadService.uploadFiles(files);
+  async uploadImages(@UploadedFiles() images: File[]) {
+    const uploadedImages = await this.uploadService.createImages(images);
 
     return {
       status: 200,
-      message: '파일 업로드를 성공하였습니다.',
+      message: '사진 업로드를 성공하였습니다.',
       data: {
-        files: uploadedFiles,
+        images: uploadedImages,
       },
     };
+  }
+
+  @Delete('/:id')
+  @UseGuards(AuthGuard)
+  async deleteImageById(@Param('id') id: string) {
+    return this.uploadService.deleteImage({ id: Number(id) });
   }
 }
