@@ -3,6 +3,7 @@
 /node_modules
 /public
 .env
+bside-backend-key.pem
 
 # Logs
 logs
