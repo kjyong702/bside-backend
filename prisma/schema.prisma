@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://jqx6jrger9jax42pu5mw:pscale_pw_SHkySHi3MpAhacVeZ7cbOV8UbAdaWZdAcrsXRVdgAiR@aws.connect.psdb.cloud/bside-dev?sslaccept=strict"
 }
 
 model User {
