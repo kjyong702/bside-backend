@@ -11,6 +11,7 @@ export class DiaryService {
   ): Promise<Diary | null> {
     return this.prisma.diary.findUnique({
       where: diaryWhereUniqueInput,
+      include: { images: true },
     });
   }
 

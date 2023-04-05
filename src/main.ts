@@ -14,6 +14,7 @@ async function bootstrap() {
       whitelist: true,
     }),
   );
-  await app.listen(3001);
+  // await app.listen(3001);
+  await app.listen(80); // 1차 배포 PORT
 }
 bootstrap();
