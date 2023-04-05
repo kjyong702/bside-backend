@@ -17,7 +17,9 @@ export class UploadService {
       });
       generatedImages.push(createdImage);
       // http://localhost:3001/public/파일이름 형식으로 저장
+      // http://http://13.125.95.255:80/public/파일이름 으로 변경
     }
+    console.log(generatedImages);
     return generatedImages;
   }
 
